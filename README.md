@@ -1,8 +1,25 @@
-This is the pulse-docker-agent-addon for Homeassistant 
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <title>Pulse Logo</title>
+  <style>
+    .pulse-bg { fill: #2563eb; }
+    .pulse-ring { fill: none; stroke: #ffffff; stroke-width: 14; opacity: 0.92; }
+    .pulse-center { fill: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      .pulse-bg { fill: #3b82f6; }
+      .pulse-ring { stroke: #dbeafe; }
+      .pulse-center { fill: #dbeafe; }
+    }
+  </style>
+  <circle class="pulse-bg" cx="128" cy="128" r="122"/>
+  <circle class="pulse-ring" cx="128" cy="128" r="84"/>
+  <circle class="pulse-center" cx="128" cy="128" r="26"/>
+</svg>
+**This is the pulse-docker-agent-addon for Homeassistant**
 
-To read more about Pulse Real-time monitoring for Proxmox VE, Proxmox Mail Gateway, PBS, and Docker infrastructure visit the official repository https://github.com/rcourtman/Pulse
+To read more about Pulse Real-time monitoring for Proxmox VE, Proxmox Mail Gateway, PBS, and Docker infrastructure visit the official repository **https://github.com/rcourtman/Pulse**
 
 ---
+![pulse-logo](https://github.com/user-attachments/assets/9a08a186-0b61-4a29-9d61-7718216ecaee)
 
 ## 🚀 Overview
 
