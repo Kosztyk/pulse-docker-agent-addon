@@ -72,7 +72,8 @@ The add-on exposes these options via the Home Assistant UI:
 > ℹ️ The add-on should validate that `pulse_url` and `api_token` are set before starting, and log a clear error if not.
 
 > **Protection mode should be off for addon to work properlly.**
-<img width="1161" height="740" alt="pulse-addon" src="https://github.com/user-attachments/assets/724467e6-5683-48db-ba65-d8c09c7544b4" />
+<img width="1066" height="592" alt="Screenshot 2025-12-03 at 16 49 14" src="https://github.com/user-attachments/assets/bc382533-9384-4661-be8a-586cb8403883" />
+
 
 ---
 
