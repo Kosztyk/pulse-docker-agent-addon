@@ -1,4 +1,4 @@
-![pulse-logo](https://github.com/user-attachments/assets/8e64337c-8270-406b-885e-873f4ec544a2)![pulse-logo](https://github.com/user-attachments/assets/21caca6f-579b-4171-ac83-b52cf2b0f028)# This is the pulse-docker-agent-addon for Homeassistant 
+This is the pulse-docker-agent-addon for Homeassistant 
 
 To read more about Pulse Real-time monitoring for Proxmox VE, Proxmox Mail Gateway, PBS, and Docker infrastructure visit the official repository https://github.com/rcourtman/Pulse
 
