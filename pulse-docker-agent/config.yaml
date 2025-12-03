@@ -14,15 +14,12 @@ docker_api: true
 host_network: true
 ingress: false
 
-# Tell HA to pull your prebuilt image
-image: "kosztyk/pulse-docker-agent"
-
 options:
   pulse_url: ""
   api_token: ""
   interval: "30s"
   log_level: "info"
-  agent_version: "v4.36.1"
+  agent_version: "4.36.1"
   extra_targets: ""
 
 schema:
@@ -32,4 +29,3 @@ schema:
   log_level: list(info|debug|warn|error)
   agent_version: str
   extra_targets: str
-
