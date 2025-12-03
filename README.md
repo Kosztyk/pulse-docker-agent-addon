@@ -1,4 +1,5 @@
-
+ <img width="617" height="393" alt="image" src="https://github.com/user-attachments/assets/54ca36cf-2c74-4d33-bbef-44d9b877be0e" />
+ 
 # 🐧 Pulse Docker Agent – Home Assistant Add-on
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/kosztyk/pulse-docker-agent-addon?style=flat-square)](https://github.com/kosztyk/pulse-docker-agent-addon)
@@ -14,6 +15,7 @@ A Home Assistant add-on that runs the **Pulse Docker Agent**, allowing your Home
 ## 📊 What is Pulse PVE Monitoring?
 
 **Pulse** is a modern, lightweight monitoring platform designed for:
+
 
 - 🖥️ Proxmox VE nodes  
 - 🐳 Docker hosts & containers  
