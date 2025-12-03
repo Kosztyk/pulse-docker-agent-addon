@@ -31,7 +31,7 @@ if bashio::config.is_empty 'interval'; then
 fi
 
 if bashio::config.is_empty 'agent_version'; then
-    AGENT_VERSION="4.36.1"
+    AGENT_VERSION="4.32.4"
     bashio::log.warning "agent_version not set, defaulting to ${AGENT_VERSION}"
 fi
 
