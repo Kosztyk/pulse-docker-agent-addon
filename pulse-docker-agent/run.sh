@@ -30,9 +30,11 @@ if bashio::config.is_empty 'interval'; then
     bashio::log.warning "interval not set, defaulting to ${INTERVAL}"
 fi
 
+# agent_version MUST come from config tab
 if bashio::config.is_empty 'agent_version'; then
-    AGENT_VERSION="4.32.4"
-    bashio::log.warning "agent_version not set, defaulting to ${AGENT_VERSION}"
+    bashio::log.error "agent_version is required but not set in add-on options."
+    bashio::log.error "Please set it in the add-on configuration (e.g. 4.36.1)."
+    exit 1
 fi
 
 bashio::log.info "Using Pulse URL: ${PULSE_URL}"
@@ -74,7 +76,14 @@ elif [ "$(cat "${VERSION_FILE}" 2>/dev/null || echo '')" != "${AGENT_VERSION}" ]
 fi
 
 if [ "${NEED_DOWNLOAD}" = true ]; then
-    DOWNLOAD_URL="https://github.com/rcourtman/Pulse/releases/download/${AGENT_VERSION}/pulse-${AGENT_VERSION}-linux-${ARCH}.tar.gz"
+    # Normalise to tag format: vX.Y.Z even if user entered X.Y.Z
+    TAG="${AGENT_VERSION}"
+    case "${TAG}" in
+        v*) ;;           # already has v prefix
+        *)  TAG="v${TAG}" ;;
+    esac
+
+    DOWNLOAD_URL="https://github.com/rcourtman/Pulse/releases/download/${TAG}/pulse-${TAG}-linux-${ARCH}.tar.gz"
     TMP_TAR="/tmp/pulse-agent.tar.gz"
     TMP_DIR="/tmp/pulse-agent"
 
