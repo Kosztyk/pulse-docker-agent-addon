@@ -62,10 +62,10 @@ The add-on exposes these options via the Home Assistant UI:
 |-----------------|----------|-------------|
 | `pulse_url`     | ✅       | URL of your Pulse server (e.g. `http://192.168.1.20:7655`) |
 | `api_token`     | ✅       | API token created in Pulse with `docker:report` scope |
-| `interval`      | ❌       | Report interval, e.g. `30s`, `60s` |
-| `log_level`     | ❌       | `debug`, `info`, `warn`, `error` |
-| `agent_version` | ❌       | Pulse agent version / tag to download |
-| `extra_targets` | ❌       | Comma-separated list of extra Docker hosts |
+| `interval`      | ✅       | Report interval, e.g. `30s`, `60s` |
+| `log_level`     | ✅       | `debug`, `info`, `warn`, `error` |
+| `agent_version` | ✅       | Pulse agent version / tag to download |
+| `extra_targets` | ✅       | Comma-separated list of extra Docker hosts |
 
 
 
@@ -93,7 +93,9 @@ The add-on exposes these options via the Home Assistant UI:
 8. Open the **Configuration** tab, set at least:
 
    - `pulse_url` – your Pulse server URL  
-   - `api_token` – token with `docker:report` permissions  
+   - `api_token` – token with `docker:report` permissions
+     
+  **Protection mode should be off for addon to work properlly.**
 
 9. Go back to **Info** tab → click **Start**  
 10. (Optional) Enable **Start on boot**
@@ -132,15 +134,6 @@ For example:
 
 ---
 
-## 🤝 Contributing
-
-Contributions, suggestions, and pull requests are welcome!
-
-- Found a bug? Open an issue  
-- Want a feature? Describe your use case  
-- Know Home Assistant internals well? PRs are highly appreciated 😄
-
----
 
 ## ⚠️ Disclaimer
 
