@@ -1,76 +1,147 @@
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <title>Pulse Logo</title>
-  <style>
-    .pulse-bg { fill: #2563eb; }
-    .pulse-ring { fill: none; stroke: #ffffff; stroke-width: 14; opacity: 0.92; }
-    .pulse-center { fill: #ffffff; }
-    @media (prefers-color-scheme: dark) {
-      .pulse-bg { fill: #3b82f6; }
-      .pulse-ring { stroke: #dbeafe; }
-      .pulse-center { fill: #dbeafe; }
-    }
-  </style>
-  <circle class="pulse-bg" cx="128" cy="128" r="122"/>
-  <circle class="pulse-ring" cx="128" cy="128" r="84"/>
-  <circle class="pulse-center" cx="128" cy="128" r="26"/>
-</svg>
-**This is the pulse-docker-agent-addon for Homeassistant**
 
-To read more about Pulse Real-time monitoring for Proxmox VE, Proxmox Mail Gateway, PBS, and Docker infrastructure visit the official repository **https://github.com/rcourtman/Pulse**
+# 🐧 Pulse Docker Agent – Home Assistant Add-on
+
+[![GitHub Repo stars](https://img.shields.io/github/stars/kosztyk/pulse-docker-agent-addon?style=flat-square)](https://github.com/kosztyk/pulse-docker-agent-addon)
+[![Docker Pulls](https://img.shields.io/docker/pulls/kosztyk/pulse-docker-agent?style=flat-square)](https://hub.docker.com/r/kosztyk/pulse-docker-agent)
+![Home Assistant](https://img.shields.io/badge/Home%20Assistant-add--on-41BDF5?style=flat-square&logo=homeassistant&logoColor=white)
+
+A Home Assistant add-on that runs the **Pulse Docker Agent**, allowing your Home Assistant host and Docker containers to be monitored by the
+[Pulse PVE Monitoring](https://github.com/rcourtman/Pulse) platform.
 
 ---
-![pulse-logo](https://github.com/user-attachments/assets/9a08a186-0b61-4a29-9d61-7718216ecaee)
 
-## 🚀 Overview
 
-Pulse is a modern, unified dashboard for your **Proxmox** and **Docker** estate. It consolidates metrics, logs, and alerts from Proxmox VE, Proxmox Backup Server, Proxmox Mail Gateway, and standalone Docker hosts into a single, beautiful interface.
+## 📊 What is Pulse PVE Monitoring?
 
-Designed for homelabs, sysadmins, and MSPs who need a "single pane of glass" without the complexity of enterprise monitoring stacks.
+**Pulse** is a modern, lightweight monitoring platform designed for:
 
-![Pulse Dashboard](docs/images/01-dashboard.png)
+- 🖥️ Proxmox VE nodes  
+- 🐳 Docker hosts & containers  
+- 💽 Storage & hardware stats  
+- 🧠 System & resource metrics  
 
-## ✨ Features
+Pulse gives you:
 
-- **Unified Monitoring**: View health and metrics for PVE, PBS, PMG, and Docker containers in one place.
-- **Smart Alerts**: Get notified via Discord, Slack, Telegram, Email, and more when things go wrong (e.g., "VM down", "Storage full").
-- **Auto-Discovery**: Automatically finds Proxmox nodes on your network.
-- **Secure by Design**: Credentials encrypted at rest, no external dependencies, and strict API scoping.
-- **Backup Explorer**: Visualize backup jobs and storage usage across your entire infrastructure.
-- **Privacy Focused**: No telemetry, no phone-home, all data stays on your server.
-- **Lightweight**: Built with Go and React, running as a single binary or container.
+- Real‑time dashboards  
+- Auto-discovery of hosts  
+- Minimal resource usage  
+- Push-based agents  
+- A unified web UI for all monitored systems  
 
-## ⚡ Quick Start
+🔗 **Official project and docs:**  
+👉 https://github.com/rcourtman/Pulse
 
-### Option 1: Proxmox LXC (Recommended)
-Run this one-liner on your Proxmox host to create a lightweight LXC container:
+---
 
-```bash
-curl -fsSL https://github.com/rcourtman/Pulse/releases/latest/download/install.sh | bash
+## 🧩 What This Add-on Does
+
+This add-on installs and runs the **Pulse Docker Agent** on the same system where Home Assistant is running.  
+It enables Pulse to collect metrics such as:
+
+- CPU, RAM, disk usage of the Docker host running Home Assistant  
+- Status and metrics of Docker containers  
+- Extra remote Docker targets if configured
+
+Under the hood, the add-on:
+
+- Downloads the correct `pulse-docker-agent` binary for your architecture  
+- Reads configuration from the Home Assistant add-on options  
+- Exposes the Docker API (as per HA add-on permissions)  
+- Sends metrics to your Pulse server at the configured interval  
+
+---
+
+
+## ⚙️ Home Assistant Add-on Configuration
+
+The add-on exposes these options via the Home Assistant UI:
+
+| Option          | Required | Description |
+|-----------------|----------|-------------|
+| `pulse_url`     | ✅       | URL of your Pulse server (e.g. `http://192.168.1.20:7655`) |
+| `api_token`     | ✅       | API token created in Pulse with `docker:report` scope |
+| `interval`      | ❌       | Report interval, e.g. `30s`, `60s` |
+| `log_level`     | ❌       | `debug`, `info`, `warn`, `error` |
+| `agent_version` | ❌       | Pulse agent version / tag to download |
+| `extra_targets` | ❌       | Comma-separated list of extra Docker hosts |
+
+
+
+> ℹ️ The add-on should validate that `pulse_url` and `api_token` are set before starting, and log a clear error if not.
+
+> **Protection mode should be off for addon to work properlly.**
+<img width="1161" height="740" alt="pulse-addon" src="https://github.com/user-attachments/assets/724467e6-5683-48db-ba65-d8c09c7544b4" />
+
+---
+
+## 🚀 Installation in Home Assistant
+
+1. Open **Home Assistant**  
+2. Go to **Settings → Add-ons → Add-on Store**  
+3. Click **⋮ (top-right) → Repositories**  
+4. Add this repository URL:
+
+   ```text
+   https://github.com/kosztyk/pulse-docker-agent-addon
+   ```
+
+5. Click **Add**, then close the dialog  
+6. You should now see **Pulse Docker Agent** in the add-on list  
+7. Click it → **Install**  
+8. Open the **Configuration** tab, set at least:
+
+   - `pulse_url` – your Pulse server URL  
+   - `api_token` – token with `docker:report` permissions  
+
+9. Go back to **Info** tab → click **Start**  
+10. (Optional) Enable **Start on boot**
+
+Your Home Assistant host should now appear in the Pulse UI as a Docker host 🎉
+
+---
+
+## 🧪 Supported Architectures
+
+The published Docker image is multi-arch:
+
+- `amd64`  
+- `arm64`
+
+Docker and Home Assistant automatically select the correct image for your CPU.
+
+---
+
+## 🖼 Screenshots
+
+You can add screenshots to the `screenshots/` folder and reference them here.  
+For example:
+
+```markdown
+![Pulse dashboard showing Home Assistant Docker host](screenshots/pulse-dashboard.png)
 ```
 
-### Option 2: Docker
-```bash
-docker run -d \
-  --name pulse \
-  -p 7655:7655 \
-  -v pulse_data:/data \
-  --restart unless-stopped \
-  rcourtman/pulse:latest
-```
+---
 
-Access the dashboard at `http://<your-ip>:7655`.
+## 🔗 Useful Links
 
-## 📚 Documentation
+- 🧠 **Pulse main repo:** https://github.com/rcourtman/Pulse  
+- 📚 **Pulse docs:** https://github.com/rcourtman/Pulse/tree/main/docs  
+- 🐳 **Docker image:** https://hub.docker.com/r/kosztyk/pulse-docker-agent  
 
-- **[Installation Guide](docs/INSTALL.md)**: Detailed instructions for Docker, Kubernetes, and bare metal.
-- **[Configuration](docs/CONFIGURATION.md)**: Setup authentication, notifications, and advanced settings.
-- **[Security](SECURITY.md)**: Learn about Pulse's security model and best practices.
-- **[API Reference](docs/API.md)**: Integrate Pulse with your own tools.
-- **[Architecture](ARCHITECTURE.md)**: High-level system design and data flow.
-- **[Troubleshooting](docs/TROUBLESHOOTING.md)**: Solutions to common issues.
+---
 
-## ❤️ Support Pulse Development
+## 🤝 Contributing
 
-Pulse is maintained by one person. Sponsorships help cover the costs of the demo server, development tools, and domains. If Pulse saves you time, please consider supporting the project!
+Contributions, suggestions, and pull requests are welcome!
 
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/rcourtman?label=Sponsor)](https://github.com/sponsors/rcourtman)
+- Found a bug? Open an issue  
+- Want a feature? Describe your use case  
+- Know Home Assistant internals well? PRs are highly appreciated 😄
+
+---
+
+## ⚠️ Disclaimer
+
+This project is an **unofficial** Home Assistant add-on for the Pulse monitoring system.  
+Please use at your own risk and always back up your Home Assistant configuration.
+<img width="1536" height="1024" alt="ChatGPT Image Dec 3, 2025, 04_44_11 PM" src="https://github.com/user-attachments/assets/54b521e9-4910-4b81-ad08-6dfe34f441ae" />
