@@ -1,4 +1,4 @@
-**Repository moved to https://github.com/Kosztyk/homeassistant-addons**
+**Repository moved to https://github.com/Kosztyk/homeassistant-addons where Pulse Server addon is also available**
 
  <img width="617" height="393" alt="image" src="https://github.com/user-attachments/assets/54ca36cf-2c74-4d33-bbef-44d9b877be0e" />
  
